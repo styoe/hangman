@@ -38,6 +38,27 @@ function isWinner(word, guesses) {
 function next(word, guesses) {
   let ammo = [];
   Object.freeze(guesses);
+  
+  // Znaci ovdje ti pokupi novi entry od playera
+  rl.question('next letter? ', answer => {
+      console.log('Player chose:', answer);
+      if (isWinner(word, guesses)) {
+        console.log('YOU WIN !!!');
+      } else if (wrongGuessCount(word, ammo) >= 6) {
+        console.log('"YOU LOSE!!!');
+      } else {
+        const nextGuesses = [...guesses, answer];
+        next(word, nextGuesses);
+        console.log('show guess: ', showGuess(word, nextGuesses));
+      }
+    });
+}
+
+// next function
+/*
+function next(word, guesses) {
+  let ammo = [];
+  Object.freeze(guesses);
   if (isWinner(word, guesses)) {
     console.log('YOU WIN !!!');
   } else if (wrongGuessCount(word, ammo) >= 6) {
@@ -52,5 +73,6 @@ function next(word, guesses) {
     });
   }
 }
+*/
 
 next('hello', []);
