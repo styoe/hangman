@@ -38,6 +38,19 @@ function isWinner(word, guesses) {
 function next(word, guesses) {
   let ammo = [];
   Object.freeze(guesses);
+  if (isWinner(word, guesses)) {
+    console.log('YOU WIN !!!');
+  } else if (wrongGuessCount(word, ammo) >= 6) {
+    console.log('"YOU LOSE!!!');
+  } else {
+    rl.question('next letter? ', answer => {
+      console.log('Player chose:', answer);
+      const nextGuesses = [...guesses, answer];
+
+      next(word, nextGuesses);
+      console.log('show guess: ', showGuess(word, nextGuesses));
+    });
+  }
 }
 
 next('hello', []);
